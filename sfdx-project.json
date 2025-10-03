@@ -5,6 +5,7 @@
       "default": true
     }
   ],
+  
   "name": "SF-Courses",
   "namespace": "",
   "sfdcLoginUrl": "https://login.salesforce.com",

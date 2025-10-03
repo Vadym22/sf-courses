@@ -155,11 +155,12 @@
     <externalSharingModel>Private</externalSharingModel>
     <label>User Response</label>
     <nameField>
+        <displayFormat>RESP-{0000}</displayFormat>
         <label>User Response Name</label>
-        <type>Text</type>
+        <type>AutoNumber</type>
     </nameField>
     <pluralLabel>User Responses</pluralLabel>
     <searchLayouts></searchLayouts>
-    <sharingModel>ReadWrite</sharingModel>
+    <sharingModel>Private</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>
