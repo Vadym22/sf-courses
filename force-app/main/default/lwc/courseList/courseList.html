@@ -1,0 +1,29 @@
+<template>
+    <lightning-card title="Courses" icon-name="custom:custom14">
+        <template if:true={courses}>
+            <div class="slds-grid slds-wrap slds-p-around_small">
+                <template for:each={courses} for:item="course">
+                    <div key={course.Id} class="slds-col slds-size_1-of-3 slds-p-around_small">
+                        <div class="slds-card slds-box slds-box_xx-small">
+                            <header class="slds-card__header slds-text-align_center">
+                                <h3 class="slds-text-heading_small">{course.Name}</h3>
+                            </header>
+                            <div class="slds-card__body slds-card__body_inner slds-p-around_medium slds-align_absolute-center">
+                                <img src={course.Course_image__c} alt="Course image"
+                                    class="slds-size_x-small slds-m-around_xx-small slds-rounded_medium"/>
+                            </div>
+                            <footer class="slds-card__footer">
+                                <lightning-button label="View Details" variant="brand" 
+                                                  onclick={handleViewDetails} data-id={course.Id}>
+                                </lightning-button>
+                            </footer>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </template>
+        <template if:true={error}>
+            <p class="slds-text-color_error slds-p-around_small">{error}</p>
+        </template>
+    </lightning-card>
+</template>
