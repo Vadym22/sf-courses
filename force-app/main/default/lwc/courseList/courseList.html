@@ -9,12 +9,12 @@
                                 <h3 class="slds-text-heading_small">{course.Name}</h3>
                             </header>
                             <div class="slds-card__body slds-card__body_inner slds-p-around_medium slds-align_absolute-center">
-                                <img src={course.Course_image__c} alt="Course image"
+                                <img src={course.ImageUrl} alt="Course image"
                                     class="slds-size_x-small slds-m-around_xx-small slds-rounded_medium"/>
                             </div>
                             <footer class="slds-card__footer">
                                 <lightning-button label="View Details" variant="brand" 
-                                                  onclick={handleViewDetails} data-id={course.Id}>
+                                                  onclick={handleNavigate} data-id={course.Id}>
                                 </lightning-button>
                             </footer>
                         </div>
