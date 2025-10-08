@@ -17,6 +17,16 @@ export default class CourseList extends NavigationMixin(LightningElement) {
         }
     }
 
+    handleNew() {
+        this[NavigationMixin.Navigate]({
+            type: 'standard__objectPage',
+            attributes: {
+                objectApiName: 'Course__c',
+                actionName: 'new'
+            }
+        });
+    }
+
     handleNavigate(event) {
         const recordId = event.target.dataset.id;
         this[NavigationMixin.Navigate]({
