@@ -1,10 +1,12 @@
 import { LightningElement, track, wire } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
-import getCourses from '@salesforce/apex/CourseController.getCourses';
+import getCourses from '@salesforce/apex/LearningController.getCourses';
+import isCourseAdmin from '@salesforce/apex/LearningController.isCourseAdmin';
 
 export default class CourseList extends NavigationMixin(LightningElement) {
     @track courses;
     @track error;
+    isAdmin;
 
     @wire(getCourses)
     wiredCourses({ error, data }) {
@@ -14,6 +16,15 @@ export default class CourseList extends NavigationMixin(LightningElement) {
         } else if (error) {
             this.error = error;
             this.courses = undefined;
+        }
+    }
+
+    @wire(isCourseAdmin)
+    wiredUser({ error, data }) {
+        if (data !== undefined) {
+            this.isAdmin = data;
+        } else if (error) {
+            console.error('Error fetching user role', error);
         }
     }
 
@@ -37,5 +48,9 @@ export default class CourseList extends NavigationMixin(LightningElement) {
                 actionName: 'view'
             }
         });
+    }
+
+    handleApply() {
+        console.log('Apply button clicked!');
     }
 }

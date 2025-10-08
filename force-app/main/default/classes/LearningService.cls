@@ -1,4 +1,4 @@
-public with sharing class CourseController {
+public with sharing class LearningService {
     public class CourseModel {
         @AuraEnabled public String Id { get; set; }
         @AuraEnabled public String Name { get; set; }
@@ -13,18 +13,21 @@ public with sharing class CourseController {
         }
     }
 
-    @AuraEnabled(cacheable=true)
-    public static List<CourseModel> getCourses() {
-        List<Course__c> courseRecords = [
-            SELECT Id, Name, Description__c, Course_image__c
-            FROM Course__c
-            ORDER BY Name
-        ];
-
+    public static List<CourseModel> mapToModel(List<Course__c> courses) {
         List<CourseModel> result = new List<CourseModel>();
-        for (Course__c c : courseRecords) {
+        for (Course__c c : courses) {
             result.add(new CourseModel(c));
         }
         return result;
+    }
+
+    public static List<CourseModel> getCourses() {
+        List<Course__c> records = LearningSelector.getCourses();
+        return mapToModel(records);
+    }
+
+    public static Boolean isCourseAdmin() {
+        Id currentUserId = UserInfo.getUserId();
+        return LearningSelector.isCourseAdmin(currentUserId);
     }
 }

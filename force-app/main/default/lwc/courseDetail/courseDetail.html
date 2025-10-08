@@ -15,12 +15,17 @@
         </div>
 
         <div slot="footer" class="slds-text-align_center slds-m-top_medium">
-            <lightning-button-group>
-                <lightning-button label="Back" icon-name="utility:back" onclick={handleBack}></lightning-button>
-                <lightning-button label="Edit" icon-name="utility:edit" onclick={handleEdit}></lightning-button>
-                <lightning-button label="New" icon-name="utility:new" onclick={handleNew}></lightning-button>
-                <lightning-button label="Delete" variant="destructive" icon-name="utility:delete" onclick={handleDelete}></lightning-button>
-            </lightning-button-group>
+            <template if:false={isCourseAdmin}>
+                <lightning-button label="Apply" onclick={handleApply}></lightning-button>
+            </template>
+            <template if:true={isCourseAdmin}>
+                <lightning-button-group>
+                    <lightning-button label="Back" icon-name="utility:back" onclick={handleBack}></lightning-button>
+                    <lightning-button label="Edit" icon-name="utility:edit" onclick={handleEdit}></lightning-button>
+                    <lightning-button label="Delete" variant="destructive" icon-name="utility:delete" onclick={handleDelete}></lightning-button>
+                </lightning-button-group>
+            </template>
+            
         </div>
     </lightning-card>
 </template>
