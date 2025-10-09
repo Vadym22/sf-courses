@@ -1,15 +1,15 @@
 public with sharing class LearningService {
     public class CourseModel {
-        @AuraEnabled public String Id { get; set; }
-        @AuraEnabled public String Name { get; set; }
-        @AuraEnabled public String Description { get; set; }
-        @AuraEnabled public String ImageUrl { get; set; }
+        @AuraEnabled public String id { get; set; }
+        @AuraEnabled public String name { get; set; }
+        @AuraEnabled public String description { get; set; }
+        @AuraEnabled public String imageUrl { get; set; }
 
-        public CourseModel(Course__c c) {
-            Id = c.Id;
-            Name = c.Name;
-            Description = c.Description__c;
-            ImageUrl = c.Course_image__c;
+        private CourseModel(Course__c c) {
+            id = c.Id;
+            name = c.Name;
+            description = c.Description__c;
+            imageUrl = c.Course_image__c;
         }
     }
 

@@ -4,28 +4,26 @@ import getCourses from '@salesforce/apex/LearningController.getCourses';
 import isCourseAdmin from '@salesforce/apex/LearningController.isCourseAdmin';
 
 export default class CourseList extends NavigationMixin(LightningElement) {
-    @track courses;
-    @track error;
+    courses;
+    error;
     isAdmin;
 
-    @wire(getCourses)
-    wiredCourses({ error, data }) {
-        if (data) {
-            this.courses = data;
-            this.error = undefined;
-        } else if (error) {
-            this.error = error;
-            this.courses = undefined;
-        }
-    }
+    connectedCallback() {
+        getCourses()
+            .then(result => {
+                this.courses = result;
+            })
+            .catch(error => {
+                console.error('Error fetching courses', error);
+            });
 
-    @wire(isCourseAdmin)
-    wiredUser({ error, data }) {
-        if (data !== undefined) {
-            this.isAdmin = data;
-        } else if (error) {
-            console.error('Error fetching user role', error);
-        }
+        isCourseAdmin()
+            .then(result => {
+                this.isAdmin = result;
+            })
+            .catch(error => {
+                console.error('Error fetching user role', error);
+            });
     }
 
     handleNew() {
