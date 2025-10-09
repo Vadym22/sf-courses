@@ -1,6 +1,6 @@
 <template>
     <lightning-card title="Courses" icon-name="custom:custom14">
-        <div slot="actions"><lightning-button label="New" icon-name="utility:new" onclick={handleNew}></lightning-button></div>
+        <div slot="actions" lwc:if={isAdmin}><lightning-button label="New" icon-name="utility:new" onclick={handleNew}></lightning-button></div>
         <template lwc:if={courses}>
             <div class="slds-grid slds-wrap slds-p-around_small">
                 <template for:each={courses} for:item="course">

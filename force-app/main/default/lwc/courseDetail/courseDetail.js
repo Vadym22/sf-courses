@@ -1,6 +1,7 @@
 import { LightningElement, api, wire } from 'lwc';
 import { getRecord, deleteRecord } from 'lightning/uiRecordApi';
 import { NavigationMixin } from 'lightning/navigation';
+import isCourseAdmin from '@salesforce/apex/LearningController.isCourseAdmin';
 // import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 const FIELDS = [
@@ -12,20 +13,31 @@ const FIELDS = [
 export default class CourseDetail extends NavigationMixin(LightningElement) {
     @api recordId;
     course = {};
+    isAdmin;
 
     @wire(getRecord, { recordId: '$recordId', fields: FIELDS })
     wiredCourse({ error, data }) {
         if (data) {
             this.course = {
-                Id: data.id,
-                Name: data.fields.Name.value,
-                Description: data.fields.Description__c.value,
-                ImageUrl: data.fields.Course_image__c.value
+                id: data.id,
+                name: data.fields.Name.value,
+                description: data.fields.Description__c.value,
+                imageUrl: data.fields.Course_image__c.value
             };
         } else if (error) {
             console.error(error);
         }
     }
+
+     connectedCallback() {
+        isCourseAdmin()
+            .then(result => {
+                this.isAdmin = result;
+            })
+            .catch(error => {
+                console.error('Error fetching user role', error);
+            });
+     }
 
     handleEdit() {
         this[NavigationMixin.Navigate]({
