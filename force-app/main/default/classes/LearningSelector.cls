@@ -9,16 +9,11 @@ public with sharing class LearningSelector {
     }
 
     public static Boolean isCourseAdmin(Id userId) {
-        Set<String> userPermissionSets = new Set<String>();
-        
-        for (PermissionSetAssignment psa : [
-            SELECT PermissionSet.Name 
+        return [
+            SELECT COUNT() 
             FROM PermissionSetAssignment 
-            WHERE AssigneeId = :userId
-        ]) {
-            userPermissionSets.add(psa.PermissionSet.Name);
-        }
-        
-        return userPermissionSets.contains('Course_Admin');
+            WHERE AssigneeId = :userId 
+            AND PermissionSet.Name = 'Course_Admin'
+        ] > 0;
     }
 }

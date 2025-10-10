@@ -1,8 +1,8 @@
 import { LightningElement, api, wire } from 'lwc';
 import { getRecord, deleteRecord } from 'lightning/uiRecordApi';
 import { NavigationMixin } from 'lightning/navigation';
+import { navigate } from 'c/navigationUtil';
 import isCourseAdmin from '@salesforce/apex/LearningController.isCourseAdmin';
-// import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 const FIELDS = [
     'Course__c.Name',
@@ -29,39 +29,23 @@ export default class CourseDetail extends NavigationMixin(LightningElement) {
         }
     }
 
-     connectedCallback() {
-        isCourseAdmin()
-            .then(result => {
-                this.isAdmin = result;
-            })
-            .catch(error => {
-                console.error('Error fetching user role', error);
-            });
-     }
+    async connectedCallback() {
+        try {
+            this.isAdmin = await isCourseAdmin();
+        } catch (error) {
+            console.error('Error fetching user role', error);
+        }
+    }
 
     handleEdit() {
-        this[NavigationMixin.Navigate]({
-            type: 'standard__recordPage',
-            attributes: {
-                recordId: this.recordId,
-                objectApiName: 'Course__c',
-                actionName: 'edit'
-            }
-        });
+        navigate(this, 'Course__c', 'edit', this.recordId);
     }
 
     handleNew() {
-        this[NavigationMixin.Navigate]({
-            type: 'standard__objectPage',
-            attributes: {
-                objectApiName: 'Course__c',
-                actionName: 'new'
-            }
-        });
+        navigate(this, 'Course__c', 'new');
     }
 
     handleBack() {
-        console.log('handle back');
         this[NavigationMixin.Navigate]({
             type: 'standard__navItemPage',
             attributes: {
@@ -74,24 +58,10 @@ export default class CourseDetail extends NavigationMixin(LightningElement) {
         deleteRecord(this.recordId)
             .then(() => {
                 console.log('delete success');
-                // this.dispatchEvent(
-                //     new ShowToastEvent({
-                //         title: 'Success',
-                //         message: 'Course deleted successfully',
-                //         variant: 'success'
-                //     })
-                // );
                 this.handleBack();
             })
             .catch(error => {
                 console.log('delete error: ', error);
-                // this.dispatchEvent(
-                //     new ShowToastEvent({
-                //         title: 'Error deleting record',
-                //         message: error.body.message,
-                //         variant: 'error'
-                //     })
-                // );
             });
     }
 }
