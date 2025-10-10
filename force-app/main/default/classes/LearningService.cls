@@ -27,7 +27,6 @@ public with sharing class LearningService {
     }
 
     public static Boolean isCourseAdmin() {
-        Id currentUserId = UserInfo.getUserId();
-        return LearningSelector.isCourseAdmin(currentUserId);
+        return LearningSelector.isCourseAdmin(UserInfo.getUserId());
     }
 }

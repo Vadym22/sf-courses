@@ -2,6 +2,7 @@ import { LightningElement, track, wire } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
 import getCourses from '@salesforce/apex/LearningController.getCourses';
 import isCourseAdmin from '@salesforce/apex/LearningController.isCourseAdmin';
+import { navigate } from 'c/navigationUtil';
 
 export default class CourseList extends NavigationMixin(LightningElement) {
     courses;
@@ -14,6 +15,7 @@ export default class CourseList extends NavigationMixin(LightningElement) {
                 this.courses = result;
             })
             .catch(error => {
+                this.error = error;
                 console.error('Error fetching courses', error);
             });
 
@@ -27,25 +29,12 @@ export default class CourseList extends NavigationMixin(LightningElement) {
     }
 
     handleNew() {
-        this[NavigationMixin.Navigate]({
-            type: 'standard__objectPage',
-            attributes: {
-                objectApiName: 'Course__c',
-                actionName: 'new'
-            }
-        });
+        navigate(this, 'Course__c', 'new');
     }
 
     handleNavigate(event) {
         const recordId = event.target.dataset.id;
-        this[NavigationMixin.Navigate]({
-            type: 'standard__recordPage',
-            attributes: {
-                recordId: recordId,
-                objectApiName: 'Course__c',
-                actionName: 'view'
-            }
-        });
+        navigate(this, 'Course__c', 'view', recordId);
     }
 
     handleApply() {
