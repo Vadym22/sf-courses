@@ -54,3 +54,4 @@ config/
 force-app/main/default/lwc/.eslintrc.json
 
 package-lock.json
+manifest/package.xml

@@ -11,9 +11,11 @@
     <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
     <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <isOmniPinnedViewEnabled>false</isOmniPinnedViewEnabled>
     <label>Learning App</label>
     <navType>Standard</navType>
     <tabs>Course__c</tabs>
+    <tabs>Learning_Home</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Learning_App_UtilityBar</utilityBar>
 </CustomApplication>

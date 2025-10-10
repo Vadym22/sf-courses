@@ -155,8 +155,9 @@
     <externalSharingModel>Private</externalSharingModel>
     <label>Course Assignment</label>
     <nameField>
+        <displayFormat>CA-{0000}</displayFormat>
         <label>CourseAssignment Name</label>
-        <type>Text</type>
+        <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Course Assignments</pluralLabel>
     <searchLayouts></searchLayouts>
