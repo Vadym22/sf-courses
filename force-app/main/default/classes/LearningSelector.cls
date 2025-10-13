@@ -13,7 +13,7 @@ public with sharing class LearningSelector {
             SELECT COUNT() 
             FROM PermissionSetAssignment 
             WHERE AssigneeId = :userId 
-            AND PermissionSet.Name = 'Course_Admin'
+            AND PermissionSet.Name = :LearningConstants.COURSE_ADMIN_PERMISSION_SET
         ] > 0;
     }
 }

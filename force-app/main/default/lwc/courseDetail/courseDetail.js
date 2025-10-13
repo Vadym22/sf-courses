@@ -57,31 +57,20 @@ export default class CourseDetail extends NavigationMixin(LightningElement) {
     }
 
     handleAssign() {
-        console.log('handleAssign');
         const defaultValues = encodeDefaultFieldValues({
             Course__c: this.recordId,
             Assignee__c: this.isAdmin ? null : USER_ID
         });
-        this[NavigationMixin.Navigate]({
-            type: 'standard__objectPage',
-            attributes: {
-                objectApiName: 'Course_Assignment__c',
-                actionName: 'new'
-            },
-            state: {
-                defaultFieldValues: defaultValues
-            }
-        });
+        navigate(this, 'Course_Assignment__c', 'new');
     }
 
-    handleDelete() {
-        deleteRecord(this.recordId)
-            .then(() => {
-                console.log('delete success');
-                this.handleBack();
-            })
-            .catch(error => {
-                console.log('delete error: ', error);
-            });
+    async handleDelete() {
+        try {
+            await deleteRecord(this.recordId);
+            console.log('delete success');
+            this.handleBack();
+        } catch (error) {
+            console.log('delete error: ', error);
+        }
     }
 }
