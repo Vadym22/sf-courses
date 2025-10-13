@@ -18,6 +18,7 @@
             <template lwc:if={isAdmin}>
                 <lightning-button-group>
                     <lightning-button label="Back" icon-name="utility:back" onclick={handleBack}></lightning-button>
+                    <lightning-button label="Assign User" icon-name="utility:adduser" onclick={handleAssign}></lightning-button>
                     <lightning-button label="Edit" icon-name="utility:edit" onclick={handleEdit}></lightning-button>
                     <lightning-button label="Delete" variant="destructive" icon-name="utility:delete" onclick={handleDelete}></lightning-button>
                 </lightning-button-group>
@@ -25,7 +26,7 @@
             <template lwc:else> 
                 <lightning-button-group>
                     <lightning-button label="Back" icon-name="utility:back" onclick={handleBack}></lightning-button>
-                    <lightning-button label="Apply" onclick={handleApply}></lightning-button>
+                    <lightning-button label="Enroll" icon-name="utility:trailhead" onclick={handleAssign}></lightning-button>
                 </lightning-button-group>
             </template>
         </div>

@@ -3,6 +3,8 @@ import { getRecord, deleteRecord } from 'lightning/uiRecordApi';
 import { NavigationMixin } from 'lightning/navigation';
 import { navigate } from 'c/navigationUtil';
 import isCourseAdmin from '@salesforce/apex/LearningController.isCourseAdmin';
+import { encodeDefaultFieldValues } from 'lightning/pageReferenceUtils';
+import USER_ID from '@salesforce/user/Id';
 
 const FIELDS = [
     'Course__c.Name',
@@ -50,6 +52,24 @@ export default class CourseDetail extends NavigationMixin(LightningElement) {
             type: 'standard__navItemPage',
             attributes: {
                 apiName: 'Learning_Home'
+            }
+        });
+    }
+
+    handleAssign() {
+        console.log('handleAssign');
+        const defaultValues = encodeDefaultFieldValues({
+            Course__c: this.recordId,
+            Assignee__c: this.isAdmin ? null : USER_ID
+        });
+        this[NavigationMixin.Navigate]({
+            type: 'standard__objectPage',
+            attributes: {
+                objectApiName: 'Course_Assignment__c',
+                actionName: 'new'
+            },
+            state: {
+                defaultFieldValues: defaultValues
             }
         });
     }
