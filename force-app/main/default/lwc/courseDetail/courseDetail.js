@@ -67,7 +67,6 @@ export default class CourseDetail extends NavigationMixin(LightningElement) {
     async handleDelete() {
         try {
             await deleteRecord(this.recordId);
-            console.log('delete success');
             this.handleBack();
         } catch (error) {
             console.log('delete error: ', error);
