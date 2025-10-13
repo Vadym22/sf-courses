@@ -1,6 +1,6 @@
 import { NavigationMixin } from 'lightning/navigation';
 
-export const navigate = (component, objectApiName, action, recordId = null) => {
+export const navigate = (component, objectApiName, action, recordId = null, defaultValues = null) => {
     let config;
 
     if (action === 'new') {
@@ -9,7 +9,10 @@ export const navigate = (component, objectApiName, action, recordId = null) => {
             attributes: {
                 objectApiName: objectApiName,
                 actionName: 'new'
-            }
+            },
+            state: defaultValues
+                ? { defaultFieldValues: defaultValues }
+                : {}
         };
     } else if (action === 'view' || action === 'edit') {
         if (!recordId) {

@@ -61,7 +61,7 @@ export default class CourseDetail extends NavigationMixin(LightningElement) {
             Course__c: this.recordId,
             Assignee__c: this.isAdmin ? null : USER_ID
         });
-        navigate(this, 'Course_Assignment__c', 'new');
+        navigate(this, 'Course_Assignment__c', 'new', null, defaultValues);
     }
 
     async handleDelete() {

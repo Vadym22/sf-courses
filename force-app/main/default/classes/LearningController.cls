@@ -1,12 +1,12 @@
 public with sharing class LearningController {
 
     @AuraEnabled
-    public static List<LearningService.CourseModel> getCourses() {
-        return LearningService.getCourses();
+    public static List<CourseService.CourseModel> getCourses() {
+        return CourseService.getCourses();
     }
 
     @AuraEnabled
     public static Boolean isCourseAdmin() {
-        return LearningService.isCourseAdmin();
+        return CourseService.isCourseAdmin();
     }
 }
