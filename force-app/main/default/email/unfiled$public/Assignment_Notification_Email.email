@@ -1,0 +1,5 @@
+<p>Hello {!User.Name},</p>
+
+<p>You have been assigned to a new course!</p>
+
+<p>Please check your assignments in the Learning App to view the course details.</p>

@@ -3,6 +3,8 @@ import { getRecord, deleteRecord } from 'lightning/uiRecordApi';
 import { NavigationMixin } from 'lightning/navigation';
 import { navigate } from 'c/navigationUtil';
 import isCourseAdmin from '@salesforce/apex/LearningController.isCourseAdmin';
+import { encodeDefaultFieldValues } from 'lightning/pageReferenceUtils';
+import USER_ID from '@salesforce/user/Id';
 
 const FIELDS = [
     'Course__c.Name',
@@ -54,14 +56,20 @@ export default class CourseDetail extends NavigationMixin(LightningElement) {
         });
     }
 
-    handleDelete() {
-        deleteRecord(this.recordId)
-            .then(() => {
-                console.log('delete success');
-                this.handleBack();
-            })
-            .catch(error => {
-                console.log('delete error: ', error);
-            });
+    handleAssign() {
+        const defaultValues = encodeDefaultFieldValues({
+            Course__c: this.recordId,
+            Assignee__c: this.isAdmin ? null : USER_ID
+        });
+        navigate(this, 'Course_Assignment__c', 'new', null, defaultValues);
+    }
+
+    async handleDelete() {
+        try {
+            await deleteRecord(this.recordId);
+            this.handleBack();
+        } catch (error) {
+            console.log('delete error: ', error);
+        }
     }
 }

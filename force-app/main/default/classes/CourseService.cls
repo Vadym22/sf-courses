@@ -1,4 +1,4 @@
-public with sharing class LearningService {
+public with sharing class CourseService {
     public class CourseModel {
         @AuraEnabled public String id { get; set; }
         @AuraEnabled public String name { get; set; }
@@ -29,4 +29,5 @@ public with sharing class LearningService {
     public static Boolean isCourseAdmin() {
         return LearningSelector.isCourseAdmin(UserInfo.getUserId());
     }
+
 }
