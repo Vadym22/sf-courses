@@ -13,7 +13,27 @@ public with sharing class CourseService {
         }
     }
 
-    public static List<CourseModel> mapToModel(List<Course__c> courses) {
+    public class CourseAssignmentModel {
+        @AuraEnabled public String id { get; set; }
+        @AuraEnabled public String assignmentId { get; set; }
+        @AuraEnabled public String name { get; set; }
+        @AuraEnabled public String description { get; set; }
+        @AuraEnabled public String imageUrl { get; set; }
+        @AuraEnabled public String status { get; set; }
+        @AuraEnabled public String score { get; set; }
+
+        private CourseAssignmentModel(Course_Assignment__c assignment) {
+            id = assignment.Course__r.Id;
+            assignmentId = assignment.Id;
+            name = assignment.Course__r.Name;
+            description = assignment.Course__r.Description__c;
+            imageUrl = assignment.Course__r.Course_image__c;
+            status = assignment.Status__c;
+            score = assignment.Score__c != null ? String.valueOf(assignment.Score__c) : null;
+        }
+    }
+
+    public static List<CourseModel> mapToModelCourse(List<Course__c> courses) {
         List<CourseModel> result = new List<CourseModel>();
         for (Course__c c : courses) {
             result.add(new CourseModel(c));
@@ -21,9 +41,22 @@ public with sharing class CourseService {
         return result;
     }
 
+    public static List<CourseAssignmentModel> mapToModelCourseAssignment(List<Course_Assignment__c> assignments) {
+        List<CourseAssignmentModel> result = new List<CourseAssignmentModel>();
+        for (Course_Assignment__c assignment : assignments) {
+            result.add(new CourseAssignmentModel(assignment));
+        }
+        return result;
+    }
+
     public static List<CourseModel> getCourses() {
         List<Course__c> records = LearningSelector.getCourses();
-        return mapToModel(records);
+        return mapToModelCourse(records);
+    }
+
+    public static List<CourseAssignmentModel> getMyCourses() {
+        List<Course_Assignment__c> records = LearningSelector.getMyCourses(UserInfo.getUserId());
+        return mapToModelCourseAssignment(records);
     }
 
     public static Boolean isCourseAdmin() {

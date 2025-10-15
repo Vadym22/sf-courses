@@ -16,6 +16,7 @@
     <navType>Standard</navType>
     <tabs>Course__c</tabs>
     <tabs>Learning_Home</tabs>
+    <tabs>My_Courses</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Learning_App_UtilityBar</utilityBar>
 </CustomApplication>

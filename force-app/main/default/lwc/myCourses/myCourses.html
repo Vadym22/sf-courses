@@ -1,0 +1,24 @@
+<template>
+    <lightning-card title="My Courses">
+        <div class="slds-p-around_medium">
+            <p lwc:if={error} class="slds-text-color_error">{error}</p>
+            <template lwc:else>
+                <div class="slds-grid slds-gutters slds-text-heading_small slds-text-color_weak slds-border_bottom slds-p-bottom_small slds-m-bottom_small">
+                    <div class="slds-col slds-size_1-of-4">Course Name</div>
+                    <div class="slds-col slds-size_1-of-4">Description</div>
+                    <div class="slds-col slds-size_1-of-4">Status</div>
+                    <div class="slds-col slds-size_1-of-4">Score</div>
+                </div>
+                
+                <template for:each={courses} for:item="course">
+                    <div key={course.id} class="slds-grid slds-gutters slds-p-vertical_small slds-border_bottom slds-hover" style="cursor: pointer;" onclick={handleCourseClick} data-course-id={course.id}>
+                        <div class="slds-col slds-size_1-of-4 slds-text-body_regular">{course.name}</div>
+                        <div class="slds-col slds-size_1-of-4 slds-text-body_regular slds-truncate">{course.description}</div>
+                        <div class="slds-col slds-size_1-of-4 slds-text-body_regular">{course.status}</div>
+                        <div class="slds-col slds-size_1-of-4 slds-text-body_regular">{course.score}</div>
+                    </div>
+                </template>
+            </template>
+        </div>
+    </lightning-card>
+</template>
