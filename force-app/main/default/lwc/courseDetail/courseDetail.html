@@ -1,21 +1,21 @@
 <template>
     <lightning-card class="slds-m-around_medium">
         <div class="slds-text-heading_large slds-text-align_center slds-m-bottom_medium">
-            {course.name}
+            {_course.name}
         </div>
 
         <div class="slds-grid slds-wrap slds-m-bottom_medium">
             <div class="slds-col slds-size_2-of-12 slds-p-around_small slds-align_absolute-center">
-                <img src={course.imageUrl} alt="Course Image" class="slds-size_xx-small"/>
+                <img src={_course.imageUrl} alt="Course Image" class="slds-size_xx-small"/>
             </div>
 
             <div class="slds-col slds-size_10-of-12 slds-p-around_small">
-                <p class="slds-text-heading_small">{course.description}</p>
+                <p class="slds-text-heading_small">{_course.description}</p>
             </div>
         </div>
 
         <div slot="footer" class="slds-text-align_center slds-m-top_medium">
-            <template lwc:if={isAdmin}>
+            <template lwc:if={_isAdmin}>
                 <lightning-button-group>
                     <lightning-button label="Back" icon-name="utility:back" onclick={handleBack}></lightning-button>
                     <lightning-button label="Assign User" icon-name="utility:adduser" onclick={handleAssign}></lightning-button>

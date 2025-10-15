@@ -1,10 +1,10 @@
 import { NavigationMixin } from 'lightning/navigation';
 
 export const navigate = (component, objectApiName, action, recordId = null, defaultValues = null) => {
-    let config;
+    let _config;
 
     if (action === 'new') {
-        config = {
+        _config = {
             type: 'standard__objectPage',
             attributes: {
                 objectApiName: objectApiName,
@@ -18,7 +18,7 @@ export const navigate = (component, objectApiName, action, recordId = null, defa
         if (!recordId) {
             throw new Error(`recordId is required for ${action} action`);
         }
-        config = {
+        _config = {
             type: 'standard__recordPage',
             attributes: {
                 recordId: recordId,
@@ -30,5 +30,5 @@ export const navigate = (component, objectApiName, action, recordId = null, defa
         throw new Error(`Unsupported action: ${action}`);
     }
 
-    component[NavigationMixin.Navigate](config);
+    component[NavigationMixin.Navigate](_config);
 };

@@ -1,9 +1,9 @@
 <template>
     <lightning-card title="Courses" icon-name="custom:custom14">
-        <div slot="actions" lwc:if={isAdmin}><lightning-button label="New" icon-name="utility:new" onclick={handleNew}></lightning-button></div>
-            <p lwc:if={error} class="slds-text-color_error slds-p-around_small">{error}</p>
+        <div slot="actions" lwc:if={_isAdmin}><lightning-button label="New" icon-name="utility:new" onclick={handleNew}></lightning-button></div>
+            <p lwc:if={_error} class="slds-text-color_error slds-p-around_small">{_error}</p>
             <div lwc:else class="slds-grid slds-wrap slds-p-around_small">
-                <template for:each={courses} for:item="course">
+                <template for:each={_courses} for:item="course">
                     <div key={course.id} class="slds-col slds-size_1-of-3 slds-p-around_small">
                         <div class="slds-card slds-box slds-box_xx-small">
                             <div class="slds-card__body slds-card__body_inner slds-align_absolute-center">
