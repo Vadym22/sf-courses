@@ -14,13 +14,13 @@ const FIELDS = [
 
 export default class CourseDetail extends NavigationMixin(LightningElement) {
     @api recordId;
-    course = {};
-    isAdmin;
+    _course = {};
+    _isAdmin;
 
     @wire(getRecord, { recordId: '$recordId', fields: FIELDS })
     wiredCourse({ error, data }) {
         if (data) {
-            this.course = {
+            this._course = {
                 id: data.id,
                 name: data.fields.Name.value,
                 description: data.fields.Description__c.value,
@@ -33,7 +33,7 @@ export default class CourseDetail extends NavigationMixin(LightningElement) {
 
     async connectedCallback() {
         try {
-            this.isAdmin = await isCourseAdmin();
+            this._isAdmin = await isCourseAdmin();
         } catch (error) {
             console.error('Error fetching user role', error);
         }
@@ -59,7 +59,7 @@ export default class CourseDetail extends NavigationMixin(LightningElement) {
     handleAssign() {
         const defaultValues = encodeDefaultFieldValues({
             Course__c: this.recordId,
-            Assignee__c: this.isAdmin ? null : USER_ID
+            Assignee__c: this._isAdmin ? null : USER_ID
         });
         navigate(this, 'Course_Assignment__c', 'new', null, defaultValues);
     }

@@ -5,23 +5,23 @@ import isCourseAdmin from '@salesforce/apex/LearningController.isCourseAdmin';
 import { navigate } from 'c/navigationUtil';
 
 export default class CourseList extends NavigationMixin(LightningElement) {
-    courses;
-    error;
-    isAdmin;
+    _courses;
+    _error;
+    _isAdmin;
 
     connectedCallback() {
         getCourses()
             .then(result => {
-                this.courses = result;
+                this._courses = result;
             })
             .catch(error => {
-                this.error = error;
+                this._error = error;
                 console.error('Error fetching courses', error);
             });
 
         isCourseAdmin()
             .then(result => {
-                this.isAdmin = result;
+                this._isAdmin = result;
             })
             .catch(error => {
                 console.error('Error fetching user role', error);
